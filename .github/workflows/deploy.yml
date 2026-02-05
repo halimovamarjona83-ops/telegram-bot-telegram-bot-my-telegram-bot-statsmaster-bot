@@ -1,0 +1,22 @@
+name: Telegram Bot Deploy
+
+on:
+  push:
+    branches:
+      - main  # Sizning asosiy branch nomi
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install Dependencies
+        run: pip install python-telegram-bot
+      - name: Run Bot
+        env:
+          TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python bot.py
